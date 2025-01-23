@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/Tahsin005/Express-JS#readme",
   "dependencies": {
+    "cookie-parser": "^1.4.7",
     "ejs": "^3.1.10",
     "express": "^4.21.2"
   }

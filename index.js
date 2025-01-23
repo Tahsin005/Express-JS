@@ -1,56 +1,39 @@
 const express = require('express');
-// const handle = require('./handle');
+const cookieParser = require('cookie-parser');
+const handler = require('./handler')
 
 const app = express();
-// const admin = express();
-
-// app.locals.title = "My App";
-
-// admin.get('/', (req, res) => {
-//     console.log(admin.mountpath);
-//     res.send('Welcome admin shaheb');
-// });
-
-// admin.on('mount', (parent) => {
-//     console.log('Admin Mounted');
-//     console.log(parent);
-// })
-
-// app.get('/', handle);
-
-// app.enable('case sensitive routing');
-
-// app.param('id', (req, res, next, id) => {
-//     const user = {
-//         userid: id,
-//         name: 'Shaheb',
-//     }
-//     req.user = user;
-//     next();
-// });
-
+app.use(express.json());
+app.use(cookieParser());
 app.set('view engine', 'ejs');
 
-app.route('/about/tahsin')
-   .get((req, res) => {
-        res.render('pages/about')
-    })
-    .post((req, res) => {
-        res.send('About Tahsin Page POST');
-    })
-    .put((req, res) => {
-        res.send('About Tahsin Page PUT');
-    });
+app.set('title', 'amar naam tahsin');
 
-// app.all('/about/:id', (req, res) => {
-//     console.log(app.mountpath);
-//     console.log(req.user);
-//     // console.log(app.enabled('case sensitive routing'));
-//     res.send('This is home page.');
-// });
+const adminRoute = express();
 
-// app.use('/admin', admin);
+adminRoute.get('/', (req, res) => {
+    // console.log(req.baseUrl);
+    // console.log(req.url);
+    // console.log(req.originalUrl);
+    // console.log(req.path);
+    // console.log(req.hostname);
+    // console.log(req.ip);
+    // console.log(req.method);
+    // console.log(req.protocol);
+    // console.log(req.params);
+    // console.log(req.query);
+    res.send('This is admin dashboard.');
+});
 
-app.listen(3000, () => {
-    console.log('Server is running on port 3000...');
+app.use('/admin', adminRoute);
+
+app.get('/user/:id', handler);
+
+app.post('/user', (req, res) => {
+    console.log(req.body);
+    res.send('This is home page POST.');
+});
+
+app.listen(4000, () => {
+    console.log('Server is running on port 4000...');
 });
